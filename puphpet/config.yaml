@@ -10,7 +10,7 @@ vagrantfile:
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                vflnp_u7ndqt5nbwa6:
+                vflnp_t6yxyobkhi0q:
                     host: '9402'
                     guest: '22'
         post_up_message: ''
@@ -33,7 +33,7 @@ vagrantfile:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            vflsf_cf7mhtfvxlmf:
+            vflsf_apcmpq48pii2:
                 source: ./
                 target: /var/www/
                 sync_type: default
@@ -91,7 +91,7 @@ nginx:
         proxy_buffers: '4 256k'
     upstreams: {  }
     vhosts:
-        nxv_8u49zqsnsvgt:
+        nxv_e4wk861bfzu0:
             server_name: miketest.dev
             server_aliases:
                 - www.miketest.dev
@@ -112,7 +112,7 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_mnjwax8dw7kk:
+                nxvl_ggi30oo43cim:
                     location: /
                     autoindex: off
                     try_files:
@@ -123,7 +123,7 @@ nginx:
                     fastcgi: ''
                     fastcgi_index: app.php
                     fastcgi_split_path: ''
-                nxvl_5w3tzfvtmn8j:
+                nxvl_huxetpnyglb8:
                     location: '~ \.php$'
                     autoindex: off
                     try_files:
@@ -153,7 +153,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_0ftmi1kth4dl:
+        av_9k24x3g0rgth:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -170,7 +170,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_fwwj6zuzx3w7:
+                avd_arowef6tti4i:
                     path: /var/www/awesome
                     options:
                         - Indexes
@@ -182,7 +182,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_ya595ityji12:
+                        avdfm_gq3pnvxt5fjc:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -210,7 +210,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_me1tegl4emn5:
+        phpfp_c2pmxbx1t3my:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -258,8 +258,9 @@ python:
     packages: {  }
     versions: {  }
 nodejs:
-    install: '0'
-    npm_packages: {  }
+    install: '1'
+    npm_packages:
+        - bower
 hhvm:
     install: '0'
     nightly: 0
@@ -283,15 +284,15 @@ mysql:
         override_options: {  }
     adminer: 0
     users:
-        mysqlnu_74bxocb08bnl:
+        mysqlnu_u7cwzq1unyhw:
             name: rss_user
             password: rss_password
     databases:
-        mysqlnd_158ontcvszft:
+        mysqlnd_1ldz0lv8id3a:
             name: rss
             sql: ''
     grants:
-        mysqlng_xk7n5qx0814t:
+        mysqlng_ku8j5pcvv0gq:
             user: dbuser
             table: '*.*'
             privileges:
