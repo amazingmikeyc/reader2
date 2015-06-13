@@ -2510,7 +2510,6 @@ return $this->name;
 }
 public function getEnvironment()
 {
-var_dump(',,,,,,,,,,');
 return $this->environment;
 }
 public function isDebug()

@@ -155,6 +155,15 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::showAction',  '_route' => 'get',);
         }
 
+        // getFeed
+        if (rtrim($pathinfo, '/') === '/getFeed') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'getFeed');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::getFeedAction',  '_route' => 'getFeed',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

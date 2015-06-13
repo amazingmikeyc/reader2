@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    
+    <header>
+        <h1>title</h1>
+    </header>
+    
+    <nav>
+        {% block navigation %}{% endblock %}
+    </nav>
+    
+    <div>
+        {% block main %}{% endblock %}
+    </div>
+    
+    <footer>
+        &copy; Mike C
+    </footer>
+
+{% endblock %}
+

@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Vinelab\Rss\Feed as RssFeed;
 use Vinelab\Rss\Rss;
+use Vinelab\Rss\Parsers\XML;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -51,14 +53,55 @@ class DefaultController extends Controller
         $feedFactory = $this->get('feedFactory');
         try {
             $feed = $feedFactory->getFeed($url);            
-            var_dump($feed->getContent());
-            $f = new RssFeed(new Rss($feed->getContent()));
+            
+            
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            var_dump(':_)');
+            var_dump($e);
+            
         }
         
-        return $this->render('default/index.html.twig');
+        return $this->render('feedShow/index.html.twig');
         
+    }
+    
+    /**
+     * @Route("getFeed/", name="getFeed")
+     */    
+    public function getFeedAction()
+    {
+        $post = $this->getRequest()->createFromGlobals();
+        $url = $post->get('url');
+        
+        $feedFactory = $this->get('feedFactory');
+        try {
+            $feed = $feedFactory->getFeed($url);            
+                       
+        } catch (\Exception $e) {
+            var_dump(':_)');
+            var_dump($e);
+            
+        }
+        
+        $parsedXML = $feed->getParsedXML();
+        
+        $formattedXML['info'] = $parsedXML->info();
+        
+        foreach ($parsedXML->articles as $article) {
+            $articles[] = [
+                'title' => $article->title,
+                'link' => $article->link,
+                'pubDate'=>$article->pubDate,
+                'content'=>$article->description
+            ];
+        }
+        $formattedXML['articles'] = $articles;
+        
+        return new Response(
+            json_encode($formattedXML), 
+            Response::HTTP_OK, 
+            ['content-type' => 'application/json']
+        );
     }
     
 }

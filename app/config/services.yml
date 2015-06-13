@@ -11,6 +11,9 @@ services:
         class: GuzzleHttp\Client
     predis:
         class: Predis\Client 
+    xmlParser:
+        class: Vinelab\Rss\Parsers\XML
     feedFactory:
         class: AppBundle\Entity\FeedFactory
-        arguments: ["@predis", "@guzzle"]
+        arguments: ["@predis", "@guzzle", "@xmlParser"]
+    

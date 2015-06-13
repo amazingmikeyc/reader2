@@ -666,9 +666,11 @@
   <services>
     <service id="guzzle" class="GuzzleHttp\Client"/>
     <service id="predis" class="Predis\Client"/>
+    <service id="xmlparser" class="Vinelab\Rss\Parsers\XML"/>
     <service id="feedfactory" class="AppBundle\Entity\FeedFactory">
       <argument type="service" id="predis"/>
       <argument type="service" id="guzzle"/>
+      <argument type="service" id="xmlparser"/>
     </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
@@ -1794,7 +1796,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>557c2b3032f6a</argument>
+            <argument>557c4053f1fb7</argument>
           </service>
         </argument>
       </argument>
@@ -2077,7 +2079,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>557c2b3032f6a</argument>
+            <argument>557c4053f1fb7</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
