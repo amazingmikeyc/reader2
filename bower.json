@@ -1,0 +1,18 @@
+{
+  "name": "reader2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/amazingmikeyc/reader2",
+  "description": "reader",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.0",
+    "bootstrap": "~3.3.4"
+  }
+}
