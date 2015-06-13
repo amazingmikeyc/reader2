@@ -27,9 +27,14 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         $context = $this->context;
         $request = $this->request;
 
+        // navigation
+        if ($pathinfo === '/navigation') {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::navigationAction',  '_route' => 'navigation',);
+        }
+
         // homepage
-        if ($pathinfo === '/app/example') {
-            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+        if ($pathinfo === '/add') {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::addAction',  '_route' => 'homepage',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

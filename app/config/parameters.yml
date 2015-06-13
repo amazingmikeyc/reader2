@@ -2,9 +2,9 @@
 parameters:
     database_host: 127.0.0.1
     database_port: null
-    database_name: symfony
-    database_user: root
-    database_password: null
+    database_name: rss
+    database_user: rss_user
+    database_password: rss_password
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
