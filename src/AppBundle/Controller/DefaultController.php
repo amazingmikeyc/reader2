@@ -47,19 +47,19 @@ class DefaultController extends Controller
      */    
     public function showAction()
     {
-        $post = $this->getRequest()->createFromGlobals();
-        $url = $post->get('url');
-        
-        $feedFactory = $this->get('feedFactory');
-        try {
-            $feed = $feedFactory->getFeed($url);            
-            
-            
-        } catch (\Exception $e) {
-            var_dump(':_)');
-            var_dump($e);
-            
-        }
+//        $post = $this->getRequest()->createFromGlobals();
+//        $url = $post->get('url');
+//        
+//        $feedFactory = $this->get('feedFactory');
+//        try {
+//            $feed = $feedFactory->getFeed($url);            
+//            
+//            
+//        } catch (\Exception $e) {
+//            var_dump(':_)');
+//            var_dump($e);
+//            
+//        }
         
         return $this->render('feedShow/index.html.twig');
         
@@ -83,19 +83,19 @@ class DefaultController extends Controller
             
         }
         
-        $parsedXML = $feed->getParsedXML();
+        $formattedXML = $feed->getParsedXML();
         
-        $formattedXML['info'] = $parsedXML->info();
-        
-        foreach ($parsedXML->articles as $article) {
-            $articles[] = [
-                'title' => $article->title,
-                'link' => $article->link,
-                'pubDate'=>$article->pubDate,
-                'content'=>$article->description
-            ];
-        }
-        $formattedXML['articles'] = $articles;
+//        $formattedXML['info'] = $parsedXML->info();
+//        
+//        foreach ($parsedXML->articles as $article) {            
+//            $articles[] = [
+//                'title' => $article->title,
+//                'link' => $article->link,
+//                'pubDate'=>$article->pubDate,
+//                'content'=>$article->description
+//            ];
+//        }
+//        $formattedXML['articles'] = $articles;
         
         return new Response(
             json_encode($formattedXML), 

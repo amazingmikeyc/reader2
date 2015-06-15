@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Predis\Client as Cache;
 use GuzzleHttp\Client as Ftp;
-use Vinelab\Rss\Parsers\XML as Parser;
+use AppBundle\Parser\Rss as Parser;
 
 class FeedFactory
 {
@@ -31,7 +31,7 @@ class FeedFactory
         
         $feed = new Feed($url, $this->cacheInterface->get($url));
         $feed->setParsedXML(
-            $this->parser->parse(new \SimpleXMLElement($feed->getContent()))
+            $this->parser->parse($feed->getContent())
         );
         return $feed;
        

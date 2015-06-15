@@ -12,7 +12,7 @@ services:
     predis:
         class: Predis\Client 
     xmlParser:
-        class: Vinelab\Rss\Parsers\XML
+        class: AppBundle\Parser\Rss
     feedFactory:
         class: AppBundle\Entity\FeedFactory
         arguments: ["@predis", "@guzzle", "@xmlParser"]
