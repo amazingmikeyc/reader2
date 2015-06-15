@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bower-concat": "^0.5.0"
+  },
+  "name": "reader2",
+  "description": "This is currently me playing around with Symfony and Angular JS to make a simple Google Reader type thing. It's currently a mess so please don't try to infer too much about my development style from this. This commit was just to get something on the screen.",
+  "version": "0.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bower-concat": "^0.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amazingmikeyc/reader2.git"
+  },
+  "author": "mikec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amazingmikeyc/reader2/issues"
+  },
+  "homepage": "https://github.com/amazingmikeyc/reader2#readme"
+}
