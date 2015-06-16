@@ -1,8 +1,10 @@
 {% extends 'fullLayout.html.twig' %}
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/js/complete.js"></script>
     <script src="/js/controller.js"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/complete.css" />
 {% endblock %}
 {% block main %}
      {% verbatim %}
@@ -30,8 +32,6 @@
         <form type="get" ng-submit="feedlist.addFeed()">
             <input type="url" placeholder="add a new url" ng-model="feedlist.newUrl" /><input type="submit" value="add" />
         </form>
-    {% endverbatim %}
-    
-    
+    {% endverbatim %}   
     
 {% endblock %}
