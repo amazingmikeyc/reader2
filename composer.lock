@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1589efd92a92fa6fc4ad14070be3d4bd",
+    "hash": "74e2443be6d00cba0a38a1bc009cfa49",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1769,16 +1769,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46"
+                "reference": "932b6e7499c670f4db6d0b871477a4a3ca161e74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
-                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/932b6e7499c670f4db6d0b871477a4a3ca161e74",
+                "reference": "932b6e7499c670f4db6d0b871477a4a3ca161e74",
                 "shasum": ""
             },
             "require": {
@@ -1887,7 +1887,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-30 16:52:28"
+            "time": "2015-06-11 21:15:28"
         },
         {
             "name": "twig/twig",
@@ -1945,89 +1945,6 @@
                 "templating"
             ],
             "time": "2015-06-06 23:31:24"
-        },
-        {
-            "name": "vinelab/http",
-            "version": "v0.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Vinelab/http.git",
-                "reference": "beb14c43321d6462a35a51f4cf6139893ead5222"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Vinelab/http/zipball/beb14c43321d6462a35a51f4cf6139893ead5222",
-                "reference": "beb14c43321d6462a35a51f4cf6139893ead5222",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.*",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Vinelab\\Http": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abed Halawi",
-                    "email": "abed.halawi@vinelab.com"
-                }
-            ],
-            "description": "An http library developed for the laravel framework. aliases itself as HttpClient",
-            "time": "2014-08-19 08:39:22"
-        },
-        {
-            "name": "vinelab/rss",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Vinelab/RSS.git",
-                "reference": "56620576f7174857197cefad94326cb897233efc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Vinelab/RSS/zipball/56620576f7174857197cefad94326cb897233efc",
-                "reference": "56620576f7174857197cefad94326cb897233efc",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.*",
-                "php": ">=5.3.0",
-                "vinelab/http": "0.1.x"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Vinelab\\Rss": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abed Halawi",
-                    "email": "abed.halawi@vinelab.com"
-                }
-            ],
-            "description": "An elegant RSS 2.0 parser.",
-            "time": "2014-03-27 00:22:31"
         }
     ],
     "packages-dev": [

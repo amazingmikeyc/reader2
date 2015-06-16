@@ -6,11 +6,11 @@ namespace AppBundle\Value;
 class RssFeed extends AbstractValue
 {
     
-    private $title;
-    private $link;
-    private $description;
+    protected $title;
+    protected $link;
+    protected $description;
     
-    private $items;
+    protected $items;
     
     public function getTitle() {
         return $this->title;

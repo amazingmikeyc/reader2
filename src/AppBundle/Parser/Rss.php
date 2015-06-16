@@ -7,6 +7,7 @@ namespace AppBundle\Parser;
  */
 class Rss {
 
+    
     /**
      * Load the XML string into a Simple XML Element
      * 
@@ -19,19 +20,49 @@ class Rss {
         \libxml_use_internal_errors(true);
         
         try {
-            $parsedXML = \simplexml_load_string($xml);         
-            var_dump($parsedXML->getDocNamespaces(true));
-            if (\libxml_get_errors() == [] && $this->checkIsRSS($parsedXML)) {                
+            $parsedXML = \simplexml_load_string($xml);           
+                       
+            if (\libxml_get_errors() == [] && $this->checkIsRSS($parsedXML)) {  
+                
+                $header = $this->createValueObject($parsedXML->channel->children());
+                $body = $this->createArticleValueObjects($parsedXML->channel->item);
+
                 return [
-                    'header' => $parsedXML->channel,
-                    //some of the RSS feeds have the items in the wrong place!
-                    'items' => $parsedXML->channel->item ? $parsedXML->channel->item : $parsedXML->item
+                    'info' => $header->toArray(), 
+                    'articles' => $body->toArray()
+                   
                 ];
             } else {
                 return false;                
             }
         } catch (\Exception $e) {
+            var_dump($e->getMessage());
             return false;
+        }
+    }
+    
+    private function createValueObject( $xmlElement)
+    {
+        return new \AppBundle\Value\RssFeed($xmlElement);
+    }
+    
+    private function createArticleValueObjects($xmlElements)
+    {               
+        $collection = new \AppBundle\Value\ArticleCollection();
+        foreach ($xmlElements as $element) {
+            $article = new \AppBundle\Value\Article($element);
+            $collection->push($article);
+        }
+        return $collection;
+    }
+    
+    /**
+     * 
+     */
+    private function getNamespaces(array $namespaces)
+    {
+        foreach ($namespaces as $namespace) {
+            //$
         }
     }
     

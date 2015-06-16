@@ -12,6 +12,12 @@ class FeedFactory
     private $curlInterface;
     private $parser;
         
+    /**
+     * 
+     * @param Cache  $cacheInterface
+     * @param Ftp    $curlInterface
+     * @param Parser $parser
+     */
     public function __construct(
         Cache $cacheInterface, 
         Ftp $curlInterface,
@@ -23,6 +29,12 @@ class FeedFactory
         $this->parser = $parser;
     }
     
+    /**
+     * 
+     * @param string $url
+     * 
+     * @return \AppBundle\Entity\Feed
+     */
     public function getFeed($url)
     {
         if (!$this->cacheInterface->get($url)) {
@@ -37,7 +49,12 @@ class FeedFactory
        
     }
         
-    
+    /**
+     * 
+     * @param string $url
+     * 
+     * @return type
+     */
     public function refreshFeed($url)
     {
         $value = $this->curlInterface->get($url);
@@ -45,6 +62,5 @@ class FeedFactory
         
         return $value->getBody;
     }
-    
     
 }
