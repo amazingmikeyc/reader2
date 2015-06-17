@@ -9,4 +9,6 @@ class Article extends AbstractValue
     protected $description;
     protected $link;
     
+    protected $content_encoded;
+    
 }

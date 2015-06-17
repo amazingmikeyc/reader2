@@ -8,6 +8,11 @@ namespace AppBundle\Parser;
 class Rss {
 
     
+    private $supportedNamespaces = [
+        'http://web.resource.org/rss/1.0/modules/content/' => 'content',
+        'http://purl.org/rss/1.0/modules/content/' => 'content'
+    ];
+    
     /**
      * Load the XML string into a Simple XML Element
      * 
@@ -23,6 +28,8 @@ class Rss {
             $parsedXML = \simplexml_load_string($xml);           
                        
             if (\libxml_get_errors() == [] && $this->checkIsRSS($parsedXML)) {  
+                
+                $namespaces = $this->getNamespaces($parsedXML);
                 
                 $header = $this->createValueObject($parsedXML->channel->children());
                 $body = $this->createArticleValueObjects($parsedXML->channel->item);
@@ -41,7 +48,7 @@ class Rss {
         }
     }
     
-    private function createValueObject( $xmlElement)
+    private function createValueObject($xmlElement)
     {
         return new \AppBundle\Value\RssFeed($xmlElement);
     }
@@ -50,7 +57,7 @@ class Rss {
     {               
         $collection = new \AppBundle\Value\ArticleCollection();
         foreach ($xmlElements as $element) {
-            $article = new \AppBundle\Value\Article($element);
+            $article = new \AppBundle\Value\Article($this->flattenNamespaces($element));
             $collection->push($article);
         }
         return $collection;
@@ -59,11 +66,28 @@ class Rss {
     /**
      * 
      */
-    private function getNamespaces(array $namespaces)
+    private function getNamespaces($xmlElements)
     {
-        foreach ($namespaces as $namespace) {
-            //$
+        $namespaces = $xmlElements->getDocNamespaces(true);
+        return $namespaces;        
+    }
+    
+    
+    private function flattenNamespaces($xmlElements)
+    {
+        $namespaces = $this->getNamespaces($xmlElements);    
+        $returnElements = [];
+        
+        foreach ($namespaces as $namespace) {          
+            $children = $xmlElements->children($namespace);           
+            foreach($children as $key => $value) {               
+                if (in_array($namespace, array_keys($this->supportedNamespaces))) {
+                    $returnElements[$this->supportedNamespaces[$namespace].'_'.$key] = (string) $value;
+                }
+            }
         }
+
+        return array_merge($returnElements, (array) $xmlElements->children());
     }
     
     /**
@@ -76,7 +100,8 @@ class Rss {
      */
     public function checkIsRSS(\SimpleXMLElement $xmlElements)
     {
-        return ($xmlElements->channel && ($xmlElements->item || $xmlElements->channel->item));
+        //well, it *thinks* it's RSS
+        return ($xmlElements->getName() == 'rss');
     }
          
     

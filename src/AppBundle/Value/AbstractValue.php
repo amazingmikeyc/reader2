@@ -1,16 +1,21 @@
 <?php
 
 namespace AppBundle\Value;
-use Illuminate\Support\Contracts;
+use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Support\Contracts\JsonableInterface;
 
-abstract class AbstractValue implements Contracts\ArrayableInterface, Contracts\JsonableInterface
+/**
+ * Abstract Value Object class
+ */
+abstract class AbstractValue implements ArrayableInterface, JsonableInterface
 {
     
     /**
+     * Constructor
      * 
-     * @param \Traversable $feed
+     * @param $feed
      */
-    public function __construct( $feed)
+    public function __construct($feed)
     {
         foreach ($feed as $key => $value) {                  
             if (property_exists($this, $key)) {           
@@ -20,6 +25,7 @@ abstract class AbstractValue implements Contracts\ArrayableInterface, Contracts\
     }
     
     /**
+     * Returns object contents as an array
      * 
      * @return array
      */
@@ -27,13 +33,14 @@ abstract class AbstractValue implements Contracts\ArrayableInterface, Contracts\
     {
         $return = [];
        
-        foreach($this as $key => $value) {          
-            $return[$key] = $value;
+        foreach($this as $key => $value) {            
+            $return[$key] = $value instanceof ArrayableInterface ? $value->toArray() : $value;
         }   
         return $return;
     }
     
     /**
+     * Return object contents as JSON-encoded string
      * 
      * @param int $options
      * 
