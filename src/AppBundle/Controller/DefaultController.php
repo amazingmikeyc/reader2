@@ -44,9 +44,7 @@ class DefaultController extends Controller
      */    
     public function showAction()
     {
-  
-        return $this->render('feedShow/index.html.twig');
-        
+        return $this->render('feedShow/index.html.twig');        
     }
     
     /**
@@ -54,9 +52,6 @@ class DefaultController extends Controller
      */    
     public function getFeedListAction()
     {
-        /**
-         * @var \AppBundle\Repository\UserFeed $userFeedRepository
-         */
         $userFeedRepository = $this->get('userFeedRepository');
         $list = $userFeedRepository->getList(0);
         
@@ -67,6 +62,9 @@ class DefaultController extends Controller
         );
     }
     
+    /**
+     * @Route("addFeedToList/")
+     */
     public function addFeedToList()
     {        
         $post = $this->getRequest()->createFromGlobals();
@@ -78,9 +76,9 @@ class DefaultController extends Controller
         
         $userFeedFactory = $this->get('userFeedFactory');
         $feedList = $userFeedFactory->createCollectionFromJson($list);
-        
-        $feedList->push($userFeedFactory->createFromArray($post));
-        
+    
+        $feedList->push($userFeedFactory->createFromArray($post->query->all()));
+        $userFeedRepository->save(0, $feedList);
     }
     
     /**
