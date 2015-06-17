@@ -29,7 +29,7 @@
     {% verbatim %}
         <ul class="nav nav-sidebar" role="navigation">
             <li ng-repeat="feed in feedlist.list" ng-class="{'active': feed.active}">
-                <a ng-click="load(feed.name, $event)" href> {{feed.title}} </a>
+                <a ng-click="load(feed.url, $event)" href> {{feed.name}} </a>
             </li>
         </ul>
         

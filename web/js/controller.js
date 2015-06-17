@@ -2,15 +2,8 @@ var rssApp = angular.module('rssApp', ['ngSanitize']);
 
 rssApp.controller('feedListController', function ($scope, $http) {
   $scope.feedlist = {};
-  $scope.feedlist.list = [
-    {'name': 'http://blog.mikecongreve.com/feed/',
-     'title': 'mikecongreves blog'},
-    {'name': 'http://scripting.com/rss.xml',
-     'title': 'scripting.com'},
-    {'name': 'http://www.guardian.co.uk/rss',
-     'title': 'guardian'}
-  ];
-  
+  $scope.feedlist.list = [{"url": "http://blog.mikecongreve.com/feed/","name": "mikecongreves blog"},{"url": "http://scripting.com/rss.xml","name": "scripting.com"},{"url": "http://www.guardian.co.uk/rss", "name": "guardian"}];
+    
   $scope.feedlist.addFeed = function() {
       $scope.feedlist.list.push({name:$scope.feedlist.newUrl, title:$scope.feedlist.newUrl});
       $scope.feedlist.newUrl = '';
@@ -25,3 +18,4 @@ rssApp.controller('feedListController', function ($scope, $http) {
   $scope.feed = [];
   
 });
+
