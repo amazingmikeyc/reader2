@@ -1,4 +1,4 @@
-var rssApp = angular.module('rssApp', []);
+var rssApp = angular.module('rssApp', ['ngSanitize']);
 
 rssApp.controller('feedListController', function ($scope, $http) {
   $scope.feedlist = {};

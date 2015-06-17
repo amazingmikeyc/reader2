@@ -10,14 +10,14 @@
      {% verbatim %}
          <h2><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h2>
          <h3>{{feed.info.description}}</h3>
-        <div>
+        <section>
             <ul>
                 <li ng-repeat="article in feed.articles">
                     <h4><a href="{{article.link}}">{{article.title}}</a></h4>
-                    <p>{{article.content}}</p>
+                    <div ng-bind-html="article.content"></div>
                 </li>
             </ul>
-        </div>
+        </section>
     {% endverbatim %}
     
 {% endblock %}
