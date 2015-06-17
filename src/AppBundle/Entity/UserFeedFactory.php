@@ -16,8 +16,8 @@ class UserFeedFactory
      */
     public function createCollectionFromJson($jsonString)
     {        
-        $array = json_decode($jsonString, true);
-        return $this->createFromArray($array);            
+        $array = json_decode($jsonString, true);   
+        return $this->createCollectionFromArray($array);            
     }
     
     /**
