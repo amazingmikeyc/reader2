@@ -5,9 +5,6 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Vinelab\Rss\Feed as RssFeed;
-use Vinelab\Rss\Rss;
-use Vinelab\Rss\Parsers\XML;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
@@ -47,21 +44,42 @@ class DefaultController extends Controller
      */    
     public function showAction()
     {
-//        $post = $this->getRequest()->createFromGlobals();
-//        $url = $post->get('url');
-//        
-//        $feedFactory = $this->get('feedFactory');
-//        try {
-//            $feed = $feedFactory->getFeed($url);            
-//            
-//            
-//        } catch (\Exception $e) {
-//            var_dump(':_)');
-//            var_dump($e);
-//            
-//        }
-        
+  
         return $this->render('feedShow/index.html.twig');
+        
+    }
+    
+    /**
+     * @Route("getFeedList/", name="getFeedList")
+     */    
+    public function getFeedListAction()
+    {
+        /**
+         * @var \AppBundle\Repository\UserFeed $userFeedRepository
+         */
+        $userFeedRepository = $this->get('userFeedRepository');
+        $list = $userFeedRepository->getList(0);
+        
+        return new Response(
+            $list,
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']
+        );
+    }
+    
+    public function addFeedToList()
+    {        
+        $post = $this->getRequest()->createFromGlobals();
+//        $url = $post->get('url');
+//        $name = $post->get('name');
+        
+        $userFeedRepository = $this->get('userFeedRepository');
+        $list = $userFeedRepository->getList(0);
+        
+        $userFeedFactory = $this->get('userFeedFactory');
+        $feedList = $userFeedFactory->createCollectionFromJson($list);
+        
+        $feedList->push($userFeedFactory->createFromArray($post));
         
     }
     
@@ -84,19 +102,7 @@ class DefaultController extends Controller
         }
         
         $formattedXML = $feed->getParsedXML();
-        
-//        $formattedXML['info'] = $parsedXML->info();
-//        
-//        foreach ($parsedXML->articles as $article) {            
-//            $articles[] = [
-//                'title' => $article->title,
-//                'link' => $article->link,
-//                'pubDate'=>$article->pubDate,
-//                'content'=>$article->description
-//            ];
-//        }
-//        $formattedXML['articles'] = $articles;
-        
+
         return new Response(
             json_encode($formattedXML), 
             Response::HTTP_OK, 

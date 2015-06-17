@@ -16,4 +16,9 @@ services:
     feedFactory:
         class: AppBundle\Entity\FeedFactory
         arguments: ["@predis", "@guzzle", "@xmlParser"]
+    userFeedRepository:
+        class: AppBundle\Repository\UserFeed
+        arguments: ["@predis"]    
+    userFeedFactory:
+        class: AppBundle\Entity\UserFeedFactory
     
