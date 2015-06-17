@@ -5,25 +5,25 @@
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/complete.css" />
+    <link rel="stylesheet" href="/css/body.css" />
 {% endblock %}
 {% block main %}
      {% verbatim %}
-         <h2><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h2>
-         <h3>{{feed.info.description}}</h3>
-        <section>
-            <ul>
-                <li ng-repeat="article in feed.articles">
-                    <h4><a href="{{article.link}}">{{article.title}}</a></h4>
-                    <div ng-bind-html="article.content"></div>
-                </li>
-            </ul>
-        </section>
+         <h1 class='page-header'><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h1>
+         <h2>{{feed.info.description}}</h2>
+        
+            <section ng-repeat="article in feed.articles">
+
+                <h4><a href="{{article.link}}">{{article.title}}</a></h4>
+                <div ng-bind-html="article.content"></div>
+
+            </section>
     {% endverbatim %}
     
 {% endblock %}
 {% block navigation %}
     {% verbatim %}
-        <ul>
+        <ul class="nav nav-sidebar">
             <li ng-repeat="feed in feedlist.list">
                 <a ng-click="load(feed.name)" href> {{feed.title}} </a>
             </li>
