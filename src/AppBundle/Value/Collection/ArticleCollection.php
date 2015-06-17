@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Value;
+namespace AppBundle\Value\Collection;
 
 use Illuminate\Support\Collection;
 

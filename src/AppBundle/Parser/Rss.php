@@ -2,6 +2,10 @@
 
 namespace AppBundle\Parser;
 
+use AppBundle\Value\RssFeed;
+use AppBundle\Value\Article;
+use AppBundle\Value\Collection\ArticleCollection;
+
 /**
  * A class to parse the XML
  */
@@ -55,7 +59,7 @@ class Rss {
     
     private function createArticleValueObjects($xmlElements)
     {               
-        $collection = new \AppBundle\Value\ArticleCollection();
+        $collection = new \AppBundle\Value\Collection\ArticleCollection();
         foreach ($xmlElements as $element) {
             $article = new \AppBundle\Value\Article($this->flattenNamespaces($element));
             $collection->push($article);

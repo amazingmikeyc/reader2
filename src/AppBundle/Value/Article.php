@@ -24,6 +24,7 @@ class Article extends AbstractValue
     protected $title;
     protected $description;
     protected $link;
+    protected $pubDate;
     
     protected $content_encoded;
     
