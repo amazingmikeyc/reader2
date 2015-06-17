@@ -12,20 +12,24 @@
          <h1 class='page-header'><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h1>
          <h2>{{feed.info.description}}</h2>
         
-            <section ng-repeat="article in feed.articles">
-
-                <h4><a href="{{article.link}}">{{article.title}}</a></h4>
-                <div ng-bind-html="article.content"></div>
-
+         <section ng-repeat="article in feed.articles"  class='panel panel-default'>
+             <div class='panel-heading'>
+                 
+                <a href="{{article.link}}">{{article.title}}</a>
+             </div>
+             
+            <div class='panel-body' ng-bind-html="article.content"></div>
+            <div class="panel-footer">{{article.pubDate}}</div>
+                
             </section>
     {% endverbatim %}
     
 {% endblock %}
 {% block navigation %}
     {% verbatim %}
-        <ul class="nav nav-sidebar">
-            <li ng-repeat="feed in feedlist.list">
-                <a ng-click="load(feed.name)" href> {{feed.title}} </a>
+        <ul class="nav nav-sidebar" role="navigation">
+            <li ng-repeat="feed in feedlist.list" ng-class="{'active': feed.active}">
+                <a ng-click="load(feed.name, $event)" href> {{feed.title}} </a>
             </li>
         </ul>
         
