@@ -9,6 +9,7 @@
 {% endblock %}
 {% block main %}
      {% verbatim %}
+         <div ng-controller="feedController">
          <h1 class='page-header'><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h1>
          <h2>{{feed.info.description}}</h2>
         
@@ -22,20 +23,23 @@
             <div class="panel-footer">{{article.pubDate}}</div>
                 
             </section>
+         </div>
     {% endverbatim %}
     
 {% endblock %}
 {% block navigation %}
     {% verbatim %}
+        <div ng-controller="feedListController">
         <ul class="nav nav-sidebar" role="navigation">
-            <li ng-repeat="feed in feedlist.list" ng-class="{'active': feed.active}">
-                <a ng-click="load(feed.url, $event)" href> {{feed.name}} </a>
+            <li ng-repeat="feed in feedList" ng-class="{'active': feed.active}">
+                <a ng-click="load(feed.url)" href> {{feed.name}} </a>
             </li>
         </ul>
         
         <form type="get" ng-submit="feedlist.addFeed()">
             <input type="url" placeholder="add a new url" ng-model="feedlist.newUrl" /><input type="submit" value="add" />
         </form>
+        </div>
     {% endverbatim %}   
     
 {% endblock %}
