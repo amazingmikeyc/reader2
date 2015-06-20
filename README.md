@@ -5,9 +5,9 @@ This is currently me playing around with Symfony and Angular JS to make a simple
 Here's what I need to do to what I've got already:
  - Make the PHP code follow some PSR rules
  - Add in unit tests for both PHP and Angular
- - Add in a nice Bootstrap or similar CSS template
- - Use Bower and suchlike
- - Replace that unfinished RSS parser (maybe fork it?)
+ - ~~Add in a nice Bootstrap or similar CSS template~~
+ - ~~Use Bower and suchlike~~
+ - ~~Replace that unfinished RSS parser (maybe fork it?)~~
  
 And that's before adding in features
  - Save and load RSS lists
