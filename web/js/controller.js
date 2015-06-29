@@ -17,8 +17,8 @@ rssApp.controller('feedListController', ["$scope", "feedListService", "feedServi
 
 
     $scope.addFeed = function() {
-        $scope.feedlist.list.push({name:$scope.feedlist.newUrl, title:$scope.feedlist.newUrl});
-        $scope.feedlist.newUrl = '';
+        feedListService.addFeed($scope.newUrl);
+        $scope.newUrl = '';
     };
     
     $scope.load = function(feedName) {
@@ -27,27 +27,29 @@ rssApp.controller('feedListController', ["$scope", "feedListService", "feedServi
      
 }]);
 
-rssApp.factory('feedListService', ["$resource", function($resource) {     
+rssApp.factory('feedListService', ["$resource", "$http", function($resource, $http) {     
         
-        var feedList = [];
-        
-        return {
-            addFeed: function(feedUrl) {
-                
-            },
-            deleteFeed: function(feedUrl) {
-                
-            },
-            loadFeedList: function() {
-                return $resource('/getFeedList', {}).query({isArray:true});
-            },
-            setFeedList: function(newList) {              
-                feedList = newList;               
-            },
-            getFeedList: function() {   
-                return feedList;
-            }
-        };
+    var feedList = [];
+
+    return {
+        addFeed: function(feedUrl) {
+            feedList.push({name:feedUrl, title:feedUrl});
+            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+            $http.post('/addFeedToList/', {url:feedUrl});
+        },
+        removeFeed: function(feedUrl) {
+            $http.post('/removeFeedFromList/', {url:feedUrl});
+        },
+        loadFeedList: function() {
+            return $resource('/getFeedList', {}).query({isArray:true});
+        },
+        setFeedList: function(newList) {              
+            feedList = newList;               
+        },
+        getFeedList: function() {   
+            return feedList;
+        }
+    };
 }]);
 
 rssApp.service('feedService', ["$resource", function($resource) {

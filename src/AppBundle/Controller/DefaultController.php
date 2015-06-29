@@ -30,10 +30,11 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("add/{param}", name="add")
+     * @Route("addFeed/{param}", name="add")
      */
-    public function addAction($param)
-    {
+    public function addFeedAction($param)
+    {      
+        
         
         return $this->render('default/index.html.twig');
     }
@@ -61,24 +62,51 @@ class DefaultController extends Controller
             ['content-type' => 'application/json']
         );
     }
+        
+    /**
+     * @Route("removeFeedFromList/")
+     */
+    public function removeFeedFromList()
+    {
+        $post = $this->getRequest()->createFromGlobals();
+    }
     
     /**
      * @Route("addFeedToList/")
      */
     public function addFeedToList()
     {        
-        $post = $this->getRequest()->createFromGlobals();
-//        $url = $post->get('url');
-//        $name = $post->get('name');
-        
+        $post = json_decode($this->getRequest()->getContent(), true);
+
         $userFeedRepository = $this->get('userFeedRepository');
         $list = $userFeedRepository->getList(0);
         
         $userFeedFactory = $this->get('userFeedFactory');
         $feedList = $userFeedFactory->createCollectionFromJson($list);
     
-        $feedList->push($userFeedFactory->createFromArray($post->query->all()));
-        $userFeedRepository->save(0, $feedList);
+        if (!$feedList->has($post['url'])) {
+            
+            $feedFactory = $this->get('feedFactory');
+            try {
+                $feed = $feedFactory->getFeed($post['url']);
+                
+                $feedList->push($userFeedFactory->createFromArray($post));
+                $userFeedRepository->save(0, $feedList);
+            
+            } catch (\Exception $e) {          
+                var_dump($e->getMessage());            
+            }
+        } else {
+            
+        }
+        
+        $list = $userFeedRepository->getList(0);
+        
+        return new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']
+        );
     }
     
     /**
@@ -92,11 +120,9 @@ class DefaultController extends Controller
         $feedFactory = $this->get('feedFactory');
         try {
             $feed = $feedFactory->getFeed($url);            
-                       
-        } catch (\Exception $e) {
-            var_dump(':_)');
-            var_dump($e);
-            
+
+        } catch (\Exception $e) {          
+            var_dump($e);            
         }
         
         $formattedXML = $feed->getParsedXML();
