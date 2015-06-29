@@ -119,18 +119,18 @@ class DefaultController extends Controller
      */    
     public function getFeedAction()
     {
-        $post = $this->getRequest()->createFromGlobals();
+        $post = $this->getRequest()->createFromGlobals()->query;
         $url = $post->get('url');
+        
+        $refresh = ($post->has('refresh') && $post->get('refresh'));
         
         $feedFactory = $this->get('feedFactory');
         try {
-            $feed = $feedFactory->getFeed($url);            
+            $feed = $feedFactory->getFeed($url, $refresh);            
 
         } catch (\Exception $e) {          
             var_dump($e);            
         }
-        
-        ;
 
         return new Response(
             $feed, 

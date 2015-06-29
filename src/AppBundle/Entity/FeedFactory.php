@@ -37,9 +37,9 @@ class FeedFactory
      * 
      * @return \AppBundle\Entity\Feed
      */
-    public function getFeed($url)
+    public function getFeed($url, $refresh = false)
     {
-        if (!$this->cacheInterface->get($url)) {
+        if ($refresh || !$this->cacheInterface->get($url)) {
             $this->refreshFeed($url);
         }
                 

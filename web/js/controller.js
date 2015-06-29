@@ -8,6 +8,8 @@ rssApp.controller('mainController', ["$scope", function ($scope) {
 
 rssApp.controller('feedController', ["$scope", 'feedService', function ($scope, feedService) {
         $scope.feed = function() { return feedService.getFeed(); };
+        
+        $scope.refreshFeed = function() { feedService.refreshFeed(); };
 }]);
 
 rssApp.controller('feedListController', ["$scope", "feedListService", "feedService", function($scope, feedListService, feedService) {
@@ -51,16 +53,18 @@ rssApp.factory('feedListService', ["$resource", "$http", function($resource, $ht
     };
 }]);
 
-rssApp.service('feedService', ["$resource", "$cacheFactory", function($resource, $cacheFactory) {
+rssApp.service('feedService', ["$resource", "$http", "$cacheFactory", function($resource, $http, $cacheFactory) {
        
     var feed = {info:{title:""}};
     var feedsCache = $cacheFactory('feeds');
+    var currentFeed = '';
     
     return {
-        loadFeed: function(feedUrl) {
+        loadFeed: function(feedUrl, options) {
+            currentFeed = feedUrl;
             return $resource(
                 '/getFeed', 
-                {'url':'@url'},
+                jQuery.extend(options, {'url':'@url'}),
                 {'get': {method:'GET', cache:feedsCache} })
                     .get({url: feedUrl}); 
         },
@@ -69,6 +73,11 @@ rssApp.service('feedService', ["$resource", "$cacheFactory", function($resource,
         },
         getFeed: function() {
             return feed;
+        },
+        refreshFeed: function() {
+            console.log(currentFeed);
+            $http.post('/getFeed', {url: currentFeed, refresh: true});
+            return this.loadFeed(currentFeed, {refresh:true});
         }
     };
         

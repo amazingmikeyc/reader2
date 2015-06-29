@@ -10,9 +10,16 @@
 {% block main %}
      {% verbatim %}
          <div ng-controller="feedController" feed='feed'>
+            <div class='pull-right'>
+                <button type='button' class='btn btn-default'>
+                    <span class='glyphicon glyphicon-refresh' ng-click='refreshFeed()'></span>
+                </button>
+            </div>
+             
             <h1 class='page-header'><a href="{{feed().link}}" >{{feed().title}}</a></h1>
-            <h2>{{feed().info.description}}</h2>
 
+            <h2>{{feed().description}}</h2>
+            
             <section ng-repeat="article in feed().articles"  class='panel panel-default'>
                 <div class='panel-heading'>
 
