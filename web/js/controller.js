@@ -34,14 +34,13 @@ rssApp.factory('feedListService', ["$resource", "$http", function($resource, $ht
     return {
         addFeed: function(feedUrl) {
             feedList.push({name:feedUrl, title:feedUrl});
-            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
             $http.post('/addFeedToList/', {url:feedUrl});
         },
         removeFeed: function(feedUrl) {
             $http.post('/removeFeedFromList/', {url:feedUrl});
         },
-        loadFeedList: function() {
-            return $resource('/getFeedList', {}).query({isArray:true});
+        loadFeedList: function(options) {            
+            return $resource('/getFeedList', options).query({isArray:true});
         },
         setFeedList: function(newList) {              
             feedList = newList;               
@@ -52,13 +51,18 @@ rssApp.factory('feedListService', ["$resource", "$http", function($resource, $ht
     };
 }]);
 
-rssApp.service('feedService', ["$resource", function($resource) {
+rssApp.service('feedService', ["$resource", "$cacheFactory", function($resource, $cacheFactory) {
        
     var feed = {info:{title:""}};
+    var feedsCache = $cacheFactory('feeds');
     
     return {
         loadFeed: function(feedUrl) {
-            return $resource('/getFeed', {'url':'@url'}).get({url: feedUrl}); 
+            return $resource(
+                '/getFeed', 
+                {'url':'@url'},
+                {'get': {method:'GET', cache:feedsCache} })
+                    .get({url: feedUrl}); 
         },
         setFeed: function(newFeed) {
             feed = newFeed;
