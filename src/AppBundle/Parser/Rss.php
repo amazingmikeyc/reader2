@@ -6,6 +6,8 @@ use AppBundle\Value\RssFeed;
 use AppBundle\Value\Article;
 use AppBundle\Value\Collection\ArticleCollection;
 
+use AppBundle\Exception\InvalidRSSException;
+
 /**
  * A class to parse the XML
  */
@@ -33,8 +35,6 @@ class Rss {
                        
             if (\libxml_get_errors() == [] && $this->checkIsRSS($parsedXML)) {  
                 
-                $namespaces = $this->getNamespaces($parsedXML);
-                
                 $header = $this->createValueObject($parsedXML->channel->children());
                 $body = $this->createArticleValueObjects($parsedXML->channel->item);
 
@@ -44,11 +44,10 @@ class Rss {
                    
                 ];
             } else {
-                return false;                
+                throw new InvalidRSSException('Invalid RSS');             
             }
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            return false;
+            throw new InvalidRSSException($e->getMessage());           
         }
     }
     
