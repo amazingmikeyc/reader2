@@ -10,7 +10,7 @@ class RssFeed extends AbstractValue
     protected $link;
     protected $description;
     
-    protected $items;
+    protected $articles;
     
     public function getTitle() {
         return $this->title;
@@ -24,8 +24,13 @@ class RssFeed extends AbstractValue
         return $this->description;
     }
 
-    public function getItems() {
-        return $this->items;
+    public function getArticles() {
+        return $this->articles;
+    }
+    
+    public function setArticles(Collection\ArticleCollection $articles) 
+    {
+        $this->articles = $articles;
     }
 
 

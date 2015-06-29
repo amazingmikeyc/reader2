@@ -35,13 +35,12 @@ class Rss {
                        
             if (\libxml_get_errors() == [] && $this->checkIsRSS($parsedXML)) {  
                 
-                $header = $this->createValueObject($parsedXML->channel->children());
+                $feed = $this->createValueObject($parsedXML->channel->children());
                 $body = $this->createArticleValueObjects($parsedXML->channel->item);
 
-                return [
-                    'info' => $header->toArray(), 
-                    'articles' => $body->toArray()                   
-                ];
+                $feed->setArticles($body);
+                
+                return $feed;
             } else {
                 throw new InvalidRSSException('Invalid RSS');             
             }

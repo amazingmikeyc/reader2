@@ -52,6 +52,15 @@ abstract class AbstractValue implements ArrayableInterface, JsonableInterface
     }
     
     /**
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+    
+    /**
      * Magical caller
      * 
      * @param get $property

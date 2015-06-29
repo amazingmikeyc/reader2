@@ -10,7 +10,7 @@
 {% block main %}
      {% verbatim %}
          <div ng-controller="feedController" feed='feed'>
-            <h1 class='page-header'><a href="{{feed().info.link}}" >{{feed().info.title}}</a></h1>
+            <h1 class='page-header'><a href="{{feed().link}}" >{{feed().title}}</a></h1>
             <h2>{{feed().info.description}}</h2>
 
             <section ng-repeat="article in feed().articles"  class='panel panel-default'>

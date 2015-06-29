@@ -90,20 +90,25 @@ class DefaultController extends Controller
             try {
                 $feed = $feedFactory->getFeed($post['url']);
                 
-                $feedList->push($userFeedFactory->createFromArray($post));
+                $newFeed['url'] = $feed->getUrl();
+                $newFeed['name'] = $feed->getParsedXML()['info']->getTitle();                
+                
+                $feedList->push($userFeedFactory->createFromArray($newFeed));
                 $userFeedRepository->save(0, $feedList);
+                
+                $response = ['OK'];
             
             } catch (\Exception $e) {          
-                var_dump($e->getMessage());            
+                $response = ['error' => 'RSS Feed doesn\'t work: '.$e->getMessage()];                         
             }
         } else {
-            
+            $response = ['notice' => 'Feed already exists'];
         }
         
         $list = $userFeedRepository->getList(0);
         
         return new Response(
-            '',
+            json_encode($response),
             Response::HTTP_OK,
             ['content-type' => 'application/json']
         );
@@ -125,10 +130,10 @@ class DefaultController extends Controller
             var_dump($e);            
         }
         
-        $formattedXML = $feed->getParsedXML();
+        ;
 
         return new Response(
-            json_encode($formattedXML), 
+            $feed, 
             Response::HTTP_OK, 
             ['content-type' => 'application/json']
         );

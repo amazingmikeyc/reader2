@@ -6,6 +6,8 @@ use Predis\Client as Cache;
 use GuzzleHttp\Client as Ftp;
 use AppBundle\Parser\Rss as Parser;
 
+use AppBundle\Value\RssFeed as Feed;
+
 class FeedFactory
 {
     private $cacheInterface;
@@ -40,11 +42,9 @@ class FeedFactory
         if (!$this->cacheInterface->get($url)) {
             $this->refreshFeed($url);
         }
-        
-        $feed = new Feed($url, $this->cacheInterface->get($url));
-        $feed->setParsedXML(
-            $this->parser->parse($feed->getContent())
-        );
+                
+        $feed = $this->parser->parse($this->cacheInterface->get($url));
+       
         return $feed;
        
     }
