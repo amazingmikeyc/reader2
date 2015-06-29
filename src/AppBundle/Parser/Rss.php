@@ -40,8 +40,7 @@ class Rss {
 
                 return [
                     'info' => $header->toArray(), 
-                    'articles' => $body->toArray()
-                   
+                    'articles' => $body->toArray()                   
                 ];
             } else {
                 throw new InvalidRSSException('Invalid RSS');             
@@ -51,12 +50,24 @@ class Rss {
         }
     }
     
-    private function createValueObject($xmlElement)
+    /**
+     * 
+     * @param \SimpleXMLElement $xmlElement
+     * 
+     * @return RssFeed
+     */
+    private function createValueObject(\SimpleXMLElement $xmlElement)
     {
         return new \AppBundle\Value\RssFeed($xmlElement);
     }
     
-    private function createArticleValueObjects($xmlElements)
+    /**
+     * 
+     * @param \SimpleXMLElement  $xmlElements
+     * 
+     * @return ArticleCollection
+     */
+    private function createArticleValueObjects(\SimpleXMLElement $xmlElements)
     {               
         $collection = new \AppBundle\Value\Collection\ArticleCollection();
         foreach ($xmlElements as $element) {
@@ -68,15 +79,25 @@ class Rss {
     
     /**
      * 
+     * @param \SimpleXMLElement  $xmlElements
+     * 
+     * @return array
      */
-    private function getNamespaces($xmlElements)
+    private function getNamespaces(\SimpleXMLElement $xmlElements)
     {
         $namespaces = $xmlElements->getDocNamespaces(true);
         return $namespaces;        
     }
     
-    
-    private function flattenNamespaces($xmlElements)
+    /**
+     * Merge in namespaced elements that we recognise into the normal array
+     * 
+     * 
+     * @param \SimpleXMLElement  $xmlElements
+     * 
+     * @return array
+     */
+    private function flattenNamespaces(\SimpleXMLElement $xmlElements)
     {
         $namespaces = $this->getNamespaces($xmlElements);    
         $returnElements = [];
@@ -94,8 +115,7 @@ class Rss {
     }
     
     /**
-     * A basic check to see if our XML has channel and item
-     * elements which RSS requires
+     * A basic check to see if our XML claims to be RSS
      * 
      * @param \SimpleXMLElement $xmlElements
      * 
