@@ -1,34 +1,48 @@
 var rssApp = angular.module('rssApp', ['ngSanitize', 'ngResource']);
 
-rssApp.controller('feedController', ["$scope", 'feedListService', function ($scope, feedService) {
+rssApp.controller('mainController', ["$scope", function ($scope) {
 
-//  $scope.load = feedService.getFeed;
-//  
-//  $scope.feed = feedService.feed;
+   // $scope.feed = [];  
   
 }]);
 
-rssApp.controller('feedListController', ["$scope", "$http", "feedListService", function($scope, $http, feedService) {
-    $scope.feedList = [{"url": "http://blog.mikecongreve.com/feed/","name": "mikecongreves blog"},{"url": "http://scripting.com/rss.xml","name": "scripting.com"},{"url": "http://www.guardian.co.uk/rss", "name": "guardian"}];
-    
-    $scope.feedList = feedService.query();
+rssApp.controller('feedController', ["$scope", 'feedService', function ($scope, feedService) {
+        $scope.feed = function() { return feedService.getFeed(); };
+}]);
 
-    console.log($scope.feedList);
+rssApp.controller('feedListController', ["$scope", "$http", "feedListService", "feedService", function($scope, $http, feedListService, feedService) {
+    
+    $scope.feedList = feedListService.query('/getFeedList');
       
     $scope.addFeed = function() {
         $scope.feedlist.list.push({name:$scope.feedlist.newUrl, title:$scope.feedlist.newUrl});
         $scope.feedlist.newUrl = '';
     };
-     
-}]);
-
-     
-
-rssApp.factory('feedListService', ["$resource", function($resource) {
-        var feed = [];
-        var feedlist = [{"url": "http://blog.mikecongreve.com/feed/","name": "mikecongreves blog"},{"url": "http://scripting.com/rss.xml","name": "scripting.com"},{"url": "http://www.guardian.co.uk/rss", "name": "guardian"}];
-
-        return $resource('/getFeedList', {}, {query: {isArray:true}});
     
+    $scope.load = function(feedName) {
+        feedService.setFeed(feedService.loadFeed(feedName));        
+    };
+     
 }]);
 
+rssApp.factory('feedListService', ["$resource", function($resource) {     
+        return $resource('/getFeedList', {}, {query: {isArray:true}});    
+}]);
+
+rssApp.service('feedService', ["$resource", function($resource) {
+       
+    var feed = {info:{title:""}};    
+    
+    return {
+        loadFeed: function(feedUrl) {
+            return $resource('/getFeed', {'url':'@url'}).get({url: feedUrl}); 
+        },
+        setFeed: function(newFeed) {
+            feed = newFeed;
+        },
+        getFeed: function() {
+            return feed;
+        }
+    };
+        
+}]);

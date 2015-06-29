@@ -9,19 +9,19 @@
 {% endblock %}
 {% block main %}
      {% verbatim %}
-         <div ng-controller="feedController">
-         <h1 class='page-header'><a href="{{feed.info.link}}" >{{feed.info.title}}</a></h1>
-         <h2>{{feed.info.description}}</h2>
-        
-         <section ng-repeat="article in feed.articles"  class='panel panel-default'>
-             <div class='panel-heading'>
-                 
-                <a href="{{article.link}}">{{article.title}}</a>
-             </div>
-             
-            <div class='panel-body' ng-bind-html="article.content"></div>
-            <div class="panel-footer">{{article.pubDate}}</div>
-                
+         <div ng-controller="feedController" feed='feed'>
+            <h1 class='page-header'><a href="{{feed().info.link}}" >{{feed().info.title}}</a></h1>
+            <h2>{{feed().info.description}}</h2>
+
+            <section ng-repeat="article in feed().articles"  class='panel panel-default'>
+                <div class='panel-heading'>
+
+                   <a href="{{article.link}}">{{article.title}}</a>
+                </div>
+
+               <div class='panel-body' ng-bind-html="article.content"></div>
+               <div class="panel-footer">{{article.pubDate}}</div>
+
             </section>
          </div>
     {% endverbatim %}
