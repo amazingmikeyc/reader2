@@ -51,4 +51,21 @@ abstract class AbstractValue implements ArrayableInterface, JsonableInterface
         return json_encode($this->toArray(), $options);
     }
     
+    /**
+     * Magical caller
+     * 
+     * @param get $property
+     */
+    public function __call($method, $param)
+    {
+
+        $property = lcfirst(str_replace('get', '', $method));
+     
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        } else {
+            return null;
+        }
+    }
+    
 }

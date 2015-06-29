@@ -103,7 +103,22 @@ class AbstractValueTest extends \PHPUnit_Framework_TestCase
         
     }
     
-    
+    public function testGetter()
+    {
+        $testData['item1'] = 'woooo';
+        $testData['item2'] = 'yay';
+        $testData['item3'] = 'mega';
+        $testData['item10'] = 'well';
+        
+        $testData = new \ArrayObject($testData);     
+
+        $value = new TestValueClass($testData);
+        
+        
+        $this->assertEquals($value->getItem1(), 'woooo');
+        $this->assertEquals($value->getItem2(), 'yay');
+        $this->assertNotEquals($value->getItem10(), 'well');
+    }
     
     
 }
