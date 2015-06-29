@@ -31,13 +31,13 @@
     {% verbatim %}
         <div ng-controller="feedListController">
         <ul class="nav nav-sidebar" role="navigation">
-            <li ng-repeat="feed in feedList" ng-class="{'active': feed.active}">
+            <li ng-repeat="feed in feedList()" ng-class="{'active': feed.active}">
                 <a ng-click="load(feed.url)" href> {{feed.name}} </a>
             </li>
         </ul>
         
-        <form type="get" ng-submit="feedlist.addFeed()">
-            <input type="url" placeholder="add a new url" ng-model="feedlist.newUrl" /><input type="submit" value="add" />
+        <form type="get" ng-submit="addFeed()">
+            <input type="url" placeholder="add a new url" ng-model="newUrl" /><input type="submit" value="add" />
         </form>
         </div>
     {% endverbatim %}   
