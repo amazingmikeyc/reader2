@@ -1,4 +1,4 @@
-var rssApp = angular.module('rssApp', ['ngSanitize', 'ngResource']);
+var rssApp = angular.module('rssApp', ['ngSanitize', 'ngResource', 'ngAnimate']);
 
 rssApp.controller('mainController', ["$scope", function ($scope) {
 
@@ -63,7 +63,7 @@ rssApp.service('feedService', ["$resource", "$http", "$cacheFactory", function($
         loadFeed: function(feedUrl, options) {
             currentFeed = feedUrl;
             return $resource(
-                '/getFeed', 
+                '/getFeed/', 
                 jQuery.extend(options, {'url':'@url'}),
                 {'get': {method:'GET', cache:feedsCache} })
                     .get({url: feedUrl}); 
@@ -74,10 +74,18 @@ rssApp.service('feedService', ["$resource", "$http", "$cacheFactory", function($
         getFeed: function() {
             return feed;
         },
-        refreshFeed: function() {
-            console.log(currentFeed);
-            $http.post('/getFeed', {url: currentFeed, refresh: true});
-            return this.loadFeed(currentFeed, {refresh:true});
+        refreshFeed: function() {            
+            
+            return $resource(
+                '/getFeed/', 
+                {'url':'@url'},
+                {'get': {method:'GET'} })
+                    .get({url: currentFeed, refresh: true}); 
+            
+            $http.post('/getFeed/', {url: currentFeed, refresh: true}).success(function() {
+                return this.loadFeed(currentFeed, {refresh:true});
+            });
+            
         }
     };
         
