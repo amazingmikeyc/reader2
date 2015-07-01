@@ -128,8 +128,8 @@ class DefaultController extends Controller
         try {
             $feed = $feedFactory->getFeed($url, $refresh);            
 
-        } catch (\Exception $e) {          
-            var_dump($e);            
+        } catch (\Exception $e) {
+            return $this->createErrorResponse($e->getMessage(), '50');
         }
 
         return new Response(
@@ -137,6 +137,20 @@ class DefaultController extends Controller
             Response::HTTP_OK, 
             ['content-type' => 'application/json']
         );
+    }
+    
+    private function createErrorResponse($errorText, $errorCode)
+    {
+        $error = [
+            'text' => $errorText,
+            'code' => $errorCode
+        ];
+        
+        return new Response(
+                json_encode($error),
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                ['content-type' => 'application/json']
+            );
     }
     
 }
