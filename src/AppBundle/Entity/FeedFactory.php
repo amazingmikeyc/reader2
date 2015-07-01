@@ -39,11 +39,12 @@ class FeedFactory
      */
     public function getFeed($url, $refresh = false)
     {
-        if ($refresh || !$this->cacheInterface->get($url)) {
-            $this->refreshFeed($url);
+        
+        if ($refresh || !$this->getFeedFromCache($url)) {
+            $this->addFeedToCache($url, $this->downloadFeed($url)); 
         }
-                
-        $feed = $this->parser->parse($this->cacheInterface->get($url));
+              
+        $feed = $this->parser->parse($this->getFeedFromCache($url));
        
         return $feed;
        
@@ -55,12 +56,30 @@ class FeedFactory
      * 
      * @return type
      */
-    public function refreshFeed($url)
+    public function downloadFeed($url)
     {
-        $value = $this->curlInterface->get($url);
-        $this->cacheInterface->set($url, $value->getBody());
-        
-        return $value->getBody;
+        return $this->curlInterface->get($url)->getBody();        
+    }
+    
+    /**
+     * 
+     * @param string $url
+     * 
+     * @return string
+     */
+    private function getFeedFromCache($url)
+    {
+        return $this->cacheInterface->get($url);
+    }
+    
+    /**
+     * 
+     * @param string $url 
+     * @param string $content
+     */
+    private function addFeedToCache($url, $content)
+    {
+        $this->cacheInterface->set($url, $content);
     }
     
 }
