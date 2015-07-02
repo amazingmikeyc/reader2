@@ -20,10 +20,10 @@
 
             <h2>{{feed().description}}</h2>
             
-            <section ng-repeat="article in feed().articles"  class='panel panel-default'>
+            <section ng-repeat="article in feed().articles"  class='panel panel-default article'>
                 <div class='panel-heading'>
 
-                   <a href="{{article.link}}">{{article.title}}</a>
+                    <a href="{{article.link}}">{{article.title}} </a>
                 </div>
 
                <div class='panel-body' ng-bind-html="article.content"></div>
@@ -39,7 +39,7 @@
         <div ng-controller="feedListController">
         <ul class="nav nav-sidebar" role="navigation">
             <li ng-repeat="feed in feedList()" ng-class="{'active': feed.active}">
-                <a ng-click="load(feed.url)" href> {{feed.name}} </a>
+                <a ng-click="load(feed.url)" href> {{feed.name}} </a> 
             </li>
         </ul>
         

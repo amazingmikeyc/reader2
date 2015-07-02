@@ -25,6 +25,7 @@ rssApp.controller('feedListController', ["$scope", "feedListService", "feedServi
     
     $scope.load = function(feedName) {
         feedService.setFeed(feedService.loadFeed(feedName));
+        feedListService.setFeed(feedName);
     };
      
 }]);
@@ -49,6 +50,11 @@ rssApp.factory('feedListService', ["$resource", "$http", function($resource, $ht
         },
         getFeedList: function() {   
             return feedList;
+        },
+        setFeed: function(feed) {
+            $(feedList).each(function() {
+                this.active = (this.url === feed);
+            });
         }
     };
 }]);
@@ -78,7 +84,7 @@ rssApp.service('feedService', ["$resource", "$http", "$cacheFactory", function($
             
             return $resource(
                 '/getFeed/', 
-                {'url':'@url'},
+                {'url':'@url', refresh: true},
                 {'get': {method:'GET'} })
                     .get({url: currentFeed, refresh: true}); 
             
