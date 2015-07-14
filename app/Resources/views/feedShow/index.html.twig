@@ -1,12 +1,4 @@
 {% extends 'fullLayout.html.twig' %}
-{% block javascripts %}
-    <script src="/js/complete.js"></script>
-    <script src="/js/controller.js"></script>
-{% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="/css/complete.css" />
-    <link rel="stylesheet" href="/css/body.css" />
-{% endblock %}
 {% block main %}
      {% verbatim %}
          <div ng-controller="feedController" feed='feed'>
@@ -35,7 +27,9 @@
     
 {% endblock %}
 {% block navigation %}
+    {{user.getName()}}
     {% verbatim %}
+        
         <div ng-controller="feedListController">
         <ul class="nav nav-sidebar" role="navigation">
             <li ng-repeat="feed in feedList()" ng-class="{'active': feed.active}">

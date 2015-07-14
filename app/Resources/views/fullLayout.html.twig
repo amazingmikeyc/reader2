@@ -1,4 +1,14 @@
 {% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script src="/js/complete.js"></script>
+    <script src="/js/controller.js"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/complete.css" />
+    <link rel="stylesheet" href="/css/body.css" />
+{% endblock %}
+
 {% block body %}
 <div class='' ng-controller='mainController'>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -29,8 +39,7 @@
     <div class="container-fluid">
     
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-
+            <div class="col-sm-3 col-md-2 sidebar">                
                 {% block navigation %}{% endblock %}
             
             </div>
@@ -38,7 +47,11 @@
                 {% block main %}{% endblock %}
             </div>
         </div>
-    
+
+        <div class='row'>
+            
+        </div>
+            
     </div>
 </div>
 

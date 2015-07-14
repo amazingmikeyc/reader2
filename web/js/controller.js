@@ -30,6 +30,13 @@ rssApp.controller('feedListController', ["$scope", "feedListService", "feedServi
      
 }]);
 
+
+rssApp.controller('loginController', ["$scope", function($scope) {
+    
+    
+    
+}]);
+
 rssApp.factory('feedListService', ["$resource", "$http", function($resource, $http) {     
         
     var feedList = [];

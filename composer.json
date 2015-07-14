@@ -22,7 +22,8 @@
         "guzzlehttp/guzzle": "^6.0",
         "friendsofsymfony/user-bundle": "^1.3",
         "predis/predis": "^1.0",
-        "illuminate/support": "4.*"
+        "illuminate/support": "4.*",
+        "hwi/oauth-bundle": "^0.3.8"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

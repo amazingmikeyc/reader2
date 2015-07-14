@@ -15,7 +15,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $parameters = [
-            ''
+            'user' => $this->getUser()
         ];
         
         return $this->render('default/index.html.twig', $parameters);
@@ -26,15 +26,16 @@ class DefaultController extends Controller
      */
     public function navigationAction()
     {
-        
+        $parameters = [
+            'user' => $this->getUser()
+        ];
     }
     
     /**
      * @Route("addFeed/{param}", name="add")
      */
     public function addFeedAction($param)
-    {      
-        
+    {              
         
         return $this->render('default/index.html.twig');
     }
@@ -45,7 +46,10 @@ class DefaultController extends Controller
      */    
     public function showAction()
     {
-        return $this->render('feedShow/index.html.twig');        
+        $parameters = [
+            'user' => $this->getUser()
+        ];
+        return $this->render('feedShow/index.html.twig', $parameters);        
     }
     
     /**
@@ -53,8 +57,10 @@ class DefaultController extends Controller
      */    
     public function getFeedListAction()
     {
+        $user = $this->getUser();
+        
         $userFeedRepository = $this->get('userFeedRepository');
-        $list = $userFeedRepository->getList(0);
+        $list = $userFeedRepository->getList($user->getId());
         
         return new Response(
             $list,
@@ -67,7 +73,8 @@ class DefaultController extends Controller
      * @Route("removeFeedFromList/")
      */
     public function removeFeedFromList()
-    {
+    {        
+        
         $post = $this->getRequest()->createFromGlobals();
     }
     

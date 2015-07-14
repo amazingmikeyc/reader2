@@ -83,3 +83,11 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    
+framework:
+    translator: ~
+    default_locale: en
+    
+twig:
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
